@@ -1,0 +1,16 @@
+# Compiled class file
+*.class
+
+.nb-gradle
+.nb-gradle-properties
+.gradle
+build/
+classes/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

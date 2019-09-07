@@ -1,0 +1,45 @@
+server:
+  port: 5000
+  servlet:
+    context-path: /gdpr-unir-api
+
+spring:
+  hateoas.use-hal-as-default-json-media-type: false
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  jpa.properties.hibernate.default_schema: gdpr
+  jpa.properties.hibernate.hbm2ddl.auto: none
+  jpa.properties.hibernate.show_sql: false
+  jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    serialization:
+      write_dates_as_timestamps: false
+      fail_on_empty_beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRESQL_URL:ec2-107-20-155-148.compute-1.amazonaws.com}:${POSTGRESQL_PORT:5432}/d2tj6dhkvn5m3b?ApplicationName=${spring.application.name}
+    username: bxqjaporgchnjb
+    password: dfd79936e32dacb122b59ee0c9a18b38854d047c7d1d7baae24ff57d8038a9b0
+
+management:
+  server:
+    port: 5002
+  info:
+    git:
+      enabled: true
+    build:
+      enabled: true
+  endpoints:
+    web:
+      exposure: {include: 'health,info,env,metrics,httptrace'}
+  metrics:
+    distribution:
+      percentiles-histogram: {http.server.requests: true}
+      percentiles: {http.server.requests: '0.50, 0.95, 0.99'}
+    export:
+      cloudwatch: {namespace: spring-boot-application, enabled: false, batch-size: 20}
+    web:
+      server: {auto-time-requests: true}
